@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Email Logs DataTable</title>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+</head>
+
+<body>
+  <button id="fetchDataButton">Fetch Data</button>
+  <table id="emailLogsTable" class="display">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Subject</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Table body will be populated dynamically -->
+    </tbody>
+  </table>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+
+  <script>
+  $(document).ready(function () {            
+    $('#fetchDataButton').click(function () {
+        fetchDataAndPopulateTable();
+    });
+});
+function fetchDataAndPopulateTable() {
+    const table = $('#emailLogsTable').DataTable({
+        destroy: true, 
+        processing: true,
+        ajax: {
+            url: 'http://localhost:3000/getEmailLogsReport',
+        },
+        columns: [
+            { data: 'id' },
+            { data: 'subject' },
+            { data: 'date' }
+        ]
+    });
+}
+  </script>
+</body>
+
+</html>
